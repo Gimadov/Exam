@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="web17Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Acts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TypeOfMalfuctionID" Type="Int32" Nullable="false" />
+    <Property Name="PhoneID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Phones" Relationship="Self.FK_Acts_Phones" FromRole="Acts" ToRole="Phones" />
+    <NavigationProperty Name="TypeOfCrash" Relationship="Self.FK_Acts_TypeOfCrash" FromRole="Acts" ToRole="TypeOfCrash" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RoeID" Type="Int32" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Roles" Relationship="Self.FK_Clients_Roles" FromRole="Clients" ToRole="Roles" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Clients" FromRole="Clients" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="PhoneID" Type="Int32" Nullable="false" />
+    <Property Name="ClientID" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="isRefund" Type="Boolean" />
+    <NavigationProperty Name="Clients" Relationship="Self.FK_Orders_Clients" FromRole="Orders" ToRole="Clients" />
+    <NavigationProperty Name="Phones" Relationship="Self.FK_Orders_Phones" FromRole="Orders" ToRole="Phones" />
+  </EntityType>
+  <EntityType Name="Phones">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneTypeId" Type="Int32" />
+    <Property Name="Cost" Type="Double" />
+    <NavigationProperty Name="Acts" Relationship="Self.FK_Acts_Phones" FromRole="Phones" ToRole="Acts" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Phones" FromRole="Phones" ToRole="Orders" />
+    <NavigationProperty Name="PhoneTypes" Relationship="Self.FK_Phones_PhoneTypes" FromRole="Phones" ToRole="PhoneTypes" />
+  </EntityType>
+  <EntityType Name="PhoneTypes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Phones" Relationship="Self.FK_Phones_PhoneTypes" FromRole="PhoneTypes" ToRole="Phones" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Clients" Relationship="Self.FK_Clients_Roles" FromRole="Roles" ToRole="Clients" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TypeOfCrash">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Acts" Relationship="Self.FK_Acts_TypeOfCrash" FromRole="TypeOfCrash" ToRole="Acts" />
+  </EntityType>
+  <Association Name="FK_Acts_Phones">
+    <End Role="Phones" Type="Self.Phones" Multiplicity="1" />
+    <End Role="Acts" Type="Self.Acts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Phones">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Acts">
+        <PropertyRef Name="PhoneID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Acts_TypeOfCrash">
+    <End Role="TypeOfCrash" Type="Self.TypeOfCrash" Multiplicity="1" />
+    <End Role="Acts" Type="Self.Acts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfCrash">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Acts">
+        <PropertyRef Name="TypeOfMalfuctionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Clients_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="Clients" Type="Self.Clients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Clients">
+        <PropertyRef Name="RoeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Phones">
+    <End Role="Phones" Type="Self.Phones" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Phones">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="PhoneID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Phones_PhoneTypes">
+    <End Role="PhoneTypes" Type="Self.PhoneTypes" Multiplicity="0..1" />
+    <End Role="Phones" Type="Self.Phones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PhoneTypes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Phones">
+        <PropertyRef Name="PhoneTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="web17Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Acts" EntityType="Self.Acts" />
+    <EntitySet Name="Clients" EntityType="Self.Clients" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" />
+    <EntitySet Name="Phones" EntityType="Self.Phones" />
+    <EntitySet Name="PhoneTypes" EntityType="Self.PhoneTypes" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TypeOfCrash" EntityType="Self.TypeOfCrash" />
+    <AssociationSet Name="FK_Acts_Phones" Association="Self.FK_Acts_Phones">
+      <End Role="Phones" EntitySet="Phones" />
+      <End Role="Acts" EntitySet="Acts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Acts_TypeOfCrash" Association="Self.FK_Acts_TypeOfCrash">
+      <End Role="TypeOfCrash" EntitySet="TypeOfCrash" />
+      <End Role="Acts" EntitySet="Acts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Clients_Roles" Association="Self.FK_Clients_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Clients" EntitySet="Clients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Clients" Association="Self.FK_Orders_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Phones" Association="Self.FK_Orders_Phones">
+      <End Role="Phones" EntitySet="Phones" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Phones_PhoneTypes" Association="Self.FK_Phones_PhoneTypes">
+      <End Role="PhoneTypes" EntitySet="PhoneTypes" />
+      <End Role="Phones" EntitySet="Phones" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

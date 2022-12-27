@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище web17ModelContainer" CdmEntityContainer="web17Entities1">
+    <EntitySetMapping Name="Acts">
+      <EntityTypeMapping TypeName="web17Model.Acts">
+        <MappingFragment StoreEntitySet="Acts">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TypeOfMalfuctionID" ColumnName="TypeOfMalfuctionID" />
+          <ScalarProperty Name="PhoneID" ColumnName="PhoneID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="web17Model.Clients">
+        <MappingFragment StoreEntitySet="Clients">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="RoeID" ColumnName="RoeID" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="web17Model.Orders">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PhoneID" ColumnName="PhoneID" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="isRefund" ColumnName="isRefund" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Phones">
+      <EntityTypeMapping TypeName="web17Model.Phones">
+        <MappingFragment StoreEntitySet="Phones">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PhoneTypeId" ColumnName="PhoneTypeId" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhoneTypes">
+      <EntityTypeMapping TypeName="web17Model.PhoneTypes">
+        <MappingFragment StoreEntitySet="PhoneTypes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="web17Model.Roles">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="web17Model.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeOfCrash">
+      <EntityTypeMapping TypeName="web17Model.TypeOfCrash">
+        <MappingFragment StoreEntitySet="TypeOfCrash">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
